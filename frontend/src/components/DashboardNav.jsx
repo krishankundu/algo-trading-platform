@@ -1,7 +1,8 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 
 export default function DashboardNav() {
   const location = useLocation();
+  const navigate = useNavigate();
 
   const links = [
     {
@@ -25,6 +26,11 @@ export default function DashboardNav() {
       path: "/trade-history",
     },
   ];
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+    navigate("/login");
+  };
 
   return (
     <div className="dashboard-links">
@@ -52,6 +58,14 @@ export default function DashboardNav() {
           </Link>
         );
       })}
+
+      <button
+        type="button"
+        className="logout-button"
+        onClick={handleLogout}
+      >
+        Logout
+      </button>
     </div>
   );
 }
