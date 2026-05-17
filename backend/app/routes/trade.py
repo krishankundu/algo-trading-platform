@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Depends, HTTPException
-
+import yfinance as yf
 from sqlalchemy.orm import Session
 
 from app.database.connection import SessionLocal
@@ -30,25 +30,47 @@ def get_db():
     finally:
         db.close()
 
+YAHOO_SYMBOL_MAP = {
+    "BTCUSDT": "BTC-USD",
+    "ETHUSDT": "ETH-USD",
+    "BNBUSDT": "BNB-USD",
+    "SOLUSDT": "SOL-USD",
+    "XRPUSDT": "XRP-USD",
+    "ADAUSDT": "ADA-USD",
+}
+
+
 def get_live_price(symbol: str):
 
-    response = requests.get(
-        "https://api.binance.com/api/v3/ticker/price",
-        params={
-            "symbol": symbol
-        }
-    )
+    symbol = symbol.upper()
 
-    if response.status_code != 200:
+    yahoo_symbol = YAHOO_SYMBOL_MAP.get(symbol)
+
+    if not yahoo_symbol:
 
         raise HTTPException(
             status_code=400,
-            detail="Invalid symbol or price fetch failed"
+            detail="Unsupported symbol"
         )
 
-    data = response.json()
+    ticker = yf.Ticker(yahoo_symbol)
 
-    return float(data["price"])
+    price = ticker.fast_info.get("last_price")
+
+    if price is None:
+
+        history = ticker.history(period="1d", interval="1m")
+
+        if history.empty:
+
+            raise HTTPException(
+                status_code=400,
+                detail="Price fetch failed"
+            )
+
+        price = history["Close"].iloc[-1]
+
+    return float(price)
 
 
 @router.post("/create")
