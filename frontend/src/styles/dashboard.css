@@ -1,0 +1,437 @@
+body {
+  margin: 0;
+  padding: 0;
+  background-color: #0f172a;
+  font-family: Arial, Helvetica, sans-serif;
+  color: white;
+}
+
+.dashboard {
+  padding: 20px;
+  min-height: 100vh;
+  background-color: #0f172a;
+}
+
+.dashboard-title {
+  font-size: 36px;
+  margin-bottom: 30px;
+  color: white;
+}
+
+/* =========================
+   PORTFOLIO
+========================= */
+
+.portfolio-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.portfolio-card {
+  background-color: #111827;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 20px;
+  transition: 0.3s;
+}
+
+.portfolio-card:hover {
+  transform: translateY(-3px);
+}
+
+.portfolio-card h3 {
+  margin: 0;
+  color: #94a3b8;
+}
+
+.portfolio-card h2 {
+  margin-top: 15px;
+  font-size: 28px;
+  color: white;
+}
+
+/* =========================
+   MARKET SECTION
+========================= */
+
+.market-section {
+  background-color: #111827;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 20px;
+  margin-bottom: 30px;
+}
+
+.market-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.market-header h2 {
+  margin: 0;
+}
+
+.current-price {
+  margin-top: 25px;
+  font-size: 36px;
+  color: #22c55e;
+}
+
+/* =========================
+   INPUTS
+========================= */
+
+input,
+select {
+  background-color: #0f172a;
+  color: white;
+  border: 1px solid #334155;
+  border-radius: 8px;
+  padding: 12px;
+  font-size: 15px;
+  outline: none;
+}
+
+input:focus,
+select:focus {
+  border-color: #22c55e;
+}
+
+/* =========================
+   INDICATORS
+========================= */
+
+.indicator-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 20px;
+  margin-top: 25px;
+}
+
+.indicator-card {
+  background-color: #1e293b;
+  border-radius: 10px;
+  padding: 20px;
+}
+
+.indicator-card h3 {
+  margin-top: 0;
+  color: #94a3b8;
+}
+
+.indicator-card p {
+  font-size: 24px;
+  margin-bottom: 0;
+}
+
+/* =========================
+   BUTTONS
+========================= */
+
+.trade-buttons {
+  display: flex;
+  gap: 15px;
+  margin-top: 30px;
+}
+
+button {
+  border: none;
+  border-radius: 8px;
+  padding: 12px 25px;
+  color: white;
+  cursor: pointer;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.9;
+}
+
+.buy-button {
+  background-color: #16a34a;
+}
+
+.sell-button {
+  background-color: #dc2626;
+}
+
+.delete-button {
+  background-color: #dc2626;
+  margin-top: 10px;
+}
+
+/* =========================
+   TRADINGVIEW CHART
+========================= */
+
+.tv-chart-wrapper {
+  margin-top: 30px;
+  height: 650px;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #334155;
+  background-color: #111827;
+}
+
+.tradingview-widget-container {
+  width: 100%;
+  height: 100%;
+}
+
+/* =========================
+   MACD
+========================= */
+
+.macd-section {
+  margin-top: 30px;
+  background-color: #1e293b;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+/* =========================
+   CANDLES
+========================= */
+
+.candles-section {
+  margin-top: 40px;
+}
+
+.candles-section h2 {
+  margin-bottom: 20px;
+}
+
+.candles-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 20px;
+}
+
+.candle-card {
+  background-color: #111827;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.candle-card p {
+  margin: 10px 0;
+}
+
+/* =========================
+   STRATEGY SECTION
+========================= */
+
+.strategy-section {
+  margin-top: 40px;
+  background-color: #111827;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.strategy-form {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 15px;
+  margin-top: 20px;
+}
+
+.strategy-form button {
+  background-color: #2563eb;
+}
+
+/* =========================
+   SAVED STRATEGIES
+========================= */
+
+.saved-strategies-section {
+  margin-top: 40px;
+}
+
+.strategy-card {
+  background-color: #111827;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.strategy-card h3 {
+  margin-top: 0;
+}
+
+/* =========================
+   TRADE HISTORY
+========================= */
+
+.trade-history-section {
+  margin-top: 40px;
+  padding-bottom: 50px;
+}
+
+.trade-card {
+  background-color: #111827;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 20px;
+  margin-bottom: 15px;
+}
+
+.trade-card h3 {
+  margin-top: 0;
+}
+
+/* =========================
+   PROFIT / LOSS
+========================= */
+
+.profit {
+  color: #22c55e;
+}
+
+.loss {
+  color: #ef4444;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media screen and (max-width: 768px) {
+
+  .dashboard-title {
+    font-size: 28px;
+  }
+
+  .current-price {
+    font-size: 28px;
+  }
+
+  .trade-buttons {
+    flex-direction: column;
+  }
+
+  button {
+    width: 100%;
+  }
+
+  .tv-chart-wrapper {
+    height: 500px;
+  }
+}
+
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.dashboard-links {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.dashboard-links a {
+  color: white;
+  text-decoration: none;
+  background-color: #1e293b;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+}
+
+.dashboard-links a:hover {
+  background-color: #2563eb;
+}
+
+.holdings-section {
+  margin-bottom: 30px;
+  background-color: #111827;
+  border: 1px solid #334155;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.holdings-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 20px;
+  margin-top: 20px;
+}
+
+.holding-card {
+  background-color: #1e293b;
+  border: 1px solid #334155;
+  border-radius: 10px;
+  padding: 18px;
+}
+
+.holding-card h3 {
+  margin-top: 0;
+}
+
+.order-quantity-box,
+.signal-strategy-box {
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-width: 260px;
+}
+
+.trigger-box {
+  margin-top: 15px;
+  display: flex;
+  gap: 14px;
+  align-items: center;
+  flex-wrap: wrap;
+  background-color: #0f172a;
+  padding: 14px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+}
+
+.trigger-box label {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+
+.trigger-box input[type="checkbox"] {
+  width: auto;
+}
+
+.trigger-box input[type="number"] {
+  max-width: 160px;
+}
+
+.dashboard-link {
+  color: white;
+  text-decoration: none;
+  background-color: #1e293b;
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #334155;
+  display: inline-block;
+}
+
+.dashboard-link:hover {
+  background-color: #2563eb;
+}
+
+.disabled-link {
+  opacity: 0.5;
+  cursor: not-allowed;
+  pointer-events: none;
+  background-color: #334155;
+}
