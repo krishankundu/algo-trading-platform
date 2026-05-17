@@ -1,69 +1,91 @@
-from fastapi import APIRouter, HTTPException
 import requests
+
+from fastapi import APIRouter, HTTPException
 
 router = APIRouter(
     prefix="/market",
     tags=["Market"]
 )
 
-# GET LIVE PRICE
-@router.get("/price/{symbol}")
-def get_price(symbol: str):
 
-    url = f"https://api.binance.com/api/v3/ticker/price?symbol={symbol}"
-
-    response = requests.get(url)
-
-    if response.status_code != 200:
-
-        raise HTTPException(
-            status_code=400,
-            detail="Invalid symbol"
-        )
-
-    return response.json()
+BINANCE_BASE_URLS = [
+    "https://api.binance.com",
+    "https://api1.binance.com",
+    "https://api2.binance.com",
+    "https://api3.binance.com",
+    "https://api4.binance.com",
+]
 
 
-# GET CANDLESTICK DATA
-@router.get("/candles/{symbol}")
-def get_candles(
+def fetch_from_binance(endpoint: str, params: dict):
+    last_error = None
 
-    symbol: str,
+    for base_url in BINANCE_BASE_URLS:
+        try:
+            response = requests.get(
+                f"{base_url}{endpoint}",
+                params=params,
+                timeout=10
+            )
 
-    interval: str = "1h",
+            if response.status_code == 200:
+                return response.json()
 
-    limit: int = 50
-):
+            last_error = response.text
 
-    url = (
-        f"https://api.binance.com/api/v3/klines"
-        f"?symbol={symbol}"
-        f"&interval={interval}"
-        f"&limit={limit}"
+        except Exception as error:
+            last_error = str(error)
+
+    raise HTTPException(
+        status_code=400,
+        detail=f"Binance request failed. Last response: {last_error}"
     )
 
-    response = requests.get(url)
 
-    if response.status_code != 200:
+@router.get("/price/{symbol}")
+def get_price(symbol: str):
+    symbol = symbol.upper()
 
-        raise HTTPException(
-            status_code=400,
-            detail="Failed to fetch candles"
-        )
+    data = fetch_from_binance(
+        "/api/v3/ticker/price",
+        {
+            "symbol": symbol
+        }
+    )
 
-    data = response.json()
+    return {
+        "symbol": data["symbol"],
+        "price": float(data["price"])
+    }
+
+
+@router.get("/candles/{symbol}")
+def get_candles(
+    symbol: str,
+    interval: str = "1h",
+    limit: int = 50
+):
+    symbol = symbol.upper()
+
+    data = fetch_from_binance(
+        "/api/v3/klines",
+        {
+            "symbol": symbol,
+            "interval": interval,
+            "limit": limit
+        }
+    )
 
     candles = []
 
     for candle in data:
-
         candles.append({
             "open_time": candle[0],
-            "open": candle[1],
-            "high": candle[2],
-            "low": candle[3],
-            "close": candle[4],
-            "volume": candle[5]
+            "open": float(candle[1]),
+            "high": float(candle[2]),
+            "low": float(candle[3]),
+            "close": float(candle[4]),
+            "volume": float(candle[5])
         })
 
     return candles
