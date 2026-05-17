@@ -10,6 +10,7 @@ from sqlalchemy.orm import Session
 
 from app.database.connection import SessionLocal
 from app.database.models import User
+from app.utils.jwt_handler import verify_token
 from app.database.portfolio_model import Portfolio
 from app.schemas.user_schema import (
     UserRegister
@@ -130,4 +131,29 @@ def get_profile(
         "id": current_user.id,
         "username": current_user.username,
         "email": current_user.email
+    }
+
+@router.get("/me")
+def get_logged_in_user(
+    token: str,
+    db: Session = Depends(get_db)
+):
+    payload = verify_token(token)
+
+    email = payload.get("sub")
+
+    user = db.query(User).filter(
+        User.email == email
+    ).first()
+
+    if not user:
+        raise HTTPException(
+            status_code=404,
+            detail="User not found"
+        )
+
+    return {
+        "id": user.id,
+        "username": user.username,
+        "email": user.email
     }

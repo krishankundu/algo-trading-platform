@@ -80,6 +80,23 @@ export default function Dashboard() {
     total_trades: 0,
   });
 
+  const fetchUser = async () => {
+    try {
+      const response = await API.get(
+        "/user/me",
+        {
+          params: {
+            token,
+          },
+        }
+      );
+
+      setUser(response.data);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   const fetchStrategies = async () => {
     try {
       const response = await API.get(
@@ -313,6 +330,7 @@ setSignal(generatedSignal);
   };
 
   useEffect(() => {
+    fetchUser();
     fetchStrategies();
     fetchTrades();
     fetchPortfolio();
@@ -528,7 +546,13 @@ setSignal(generatedSignal);
   return (
     <div className="dashboard">
       <div className="dashboard-header">
-        <h1 className="dashboard-title">Trading Dashboard</h1>
+        <div>
+          <h1 className="dashboard-title">Trading Dashboard</h1>
+
+          <p className="dashboard-user">
+            Welcome, {user ? user.username : "User"}
+          </p>
+        </div>
 
         <DashboardNav />
       </div>
