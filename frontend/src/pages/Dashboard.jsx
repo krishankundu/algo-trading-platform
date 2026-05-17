@@ -49,6 +49,7 @@ export default function Dashboard() {
     "ADAUSDT",
   ];
 
+  const [user, setUser] = useState(null);
   const [strategies, setStrategies] = useState([]);
   const [trades, setTrades] = useState([]);
   const [orderQuantity, setOrderQuantity] = useState("");
@@ -68,7 +69,6 @@ export default function Dashboard() {
   const [signal, setSignal] = useState("WAIT");
   const [rsiValue, setRsiValue] = useState(null);
   const [emaValue, setEmaValue] = useState(null);
-
   const [macdData, setMacdData] = useState([]);
   const [signalData, setSignalData] = useState([]);
   const [histogramData, setHistogramData] = useState([]);
